@@ -98,8 +98,19 @@ class EmployeeController {
     @DeleteMapping("/employees/{id}")
     ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
 
+        Employee employee = repository.findById(id) //
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+
         repository.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }
 }
+/*@GetMapping("/employees/{id}")
+    EntityModel<Employee> one(@PathVariable Long id) {
+
+        Employee employee = repository.findById(id) //
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+
+        return assembler.toModel(employee);
+    }*/
