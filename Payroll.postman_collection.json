@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "4c3cbda3-dfd1-4de7-8146-8a2e23962406",
+		"name": "Payroll",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Employees List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "One Employee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check employee id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(1);\r",
+							"});\r",
+							"pm.test(\"Check employee name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"Bilbo Baggins\");\r",
+							"});\r",
+							"pm.test(\"Check employee data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql({\r",
+							"        \"id\": 1,\r",
+							"        \"firstName\": \"Bilbo\",\r",
+							"        \"lastName\": \"Baggins\",\r",
+							"        \"role\": \"burglar\",\r",
+							"        \"name\": \"Bilbo Baggins\",\r",
+							"        \"_links\": {\r",
+							"            \"self\": {\r",
+							"                \"href\": \"http://localhost:8080/employees/1\"\r",
+							"            },\r",
+							"            \"employees\": {\r",
+							"                \"href\": \"http://localhost:8080/employees\"\r",
+							"            }\r",
+							"        }\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/employees/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employees",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
